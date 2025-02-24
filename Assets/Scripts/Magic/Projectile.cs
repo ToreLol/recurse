@@ -1,9 +1,12 @@
 using UnityEngine;
+using UnityEngine.UIElements;
+using UnityEngine.VFX;
 
 public class Projectile : MonoBehaviour
 {
     public float speed = 50f;
     public Rigidbody rb;
+    public VisualEffect hitEffect;
 
     void OnEnable()
     {
@@ -18,8 +21,9 @@ public class Projectile : MonoBehaviour
 
     public void DestroyProjectile(Vector3 puntoColision)
     {
-        //Cualquier logica que quieran correr al momento que el proyectil choca con la diana
-
+        VisualEffect vfxInstance = Instantiate(hitEffect, puntoColision, Quaternion.identity);
+        vfxInstance.Play(); // Reproduce el efecto
+        Destroy(vfxInstance.gameObject, 2f);
         Destroy(gameObject);
     }
 
